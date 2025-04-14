@@ -10,7 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os 
+
 from pathlib import Path
+
+import dj_database_url
+
+from core import constants
+
+import sentry_sdk
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +28,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#ekcs2g33o)c!_2*_o*9mf7^1n7tp6mv1sfj$1ouz$$&8@djge'
+SECRET_KEY = constants.APP_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = constants.DEBUG_MODE
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+] + os.environ.get('ALLOWED_HOSTS').split(",")
+
+CSRF_TRUSTED_ORIGINS_STR = os.environ.get("CSRF_TRUSTED_ORIGINS")
+
 
 
 # Application definition
@@ -37,6 +50,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # Internal Apps
+    'billing',
+    'internet_bundles',
 ]
 
 MIDDLEWARE = [
@@ -74,10 +91,7 @@ WSGI_APPLICATION = 'django_pay.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(default=constants.DATABASE_URL)
 }
 
 
@@ -121,3 +135,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+if not DEBUG:
+    sentry_sdk.init(
+        dsn=os.environ.get("SENTRY_DSN"),
+        # Set traces_sample_rate to 1.0 to capture 100%
+        # of transactions for performance monitoring.
+        traces_sample_rate=0.3,
+        # Set profiles_sample_rate to 1.0 to profile 100%
+        # of sampled transactions.
+        # We recommend adjusting this value in production.
+        profiles_sample_rate=0.3,
+    )
