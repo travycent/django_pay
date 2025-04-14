@@ -1,0 +1,27 @@
+# Virtual Env
+django_pay_env
+
+# mac specific
+.DS_Store
+
+db.sqlite3
+
+# Virtual envs
+.env
+
+# Python files
+*.pyc
+__pycache__/
+.ruff_cache
+
+# static files
+static/*
+
+# IDE specific
+.vscode/
+
+# PG data from docker
+.pg_data
+
+# Media files
+/media/*
