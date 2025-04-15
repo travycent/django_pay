@@ -25,5 +25,44 @@ class UserManagerTest(TestCase):
         self.assertFalse(user.is_staff)
         self.assertFalse(user.is_superuser)
         
+    def test_create_superuser_successful(self):
+        """
+        Test that a superuser is created successfully with valid inputs.
+        """
+        email = "admin@example.com"
+        password = "adminpassword123"
+
+        superuser = User.objects.create_superuser(
+            email=email,
+            password=password
+        )
+
+        self.assertEqual(superuser.email, email)
+        self.assertTrue(superuser.check_password(password))
+        self.assertTrue(superuser.is_staff)
+        self.assertTrue(superuser.is_superuser)
+        
+    def test_create_superuser_missing_is_staff(self):
+        """
+        Test that creating a superuser without is_staff=True raises a ValueError.
+        """
+        with self.assertRaises(ValueError):
+            User.objects.create_superuser(
+                email="admin@example.com",
+                password="adminpassword123",
+                is_staff=False
+            )
+            
+    def test_create_superuser_missing_is_superuser(self):
+        """
+        Test that creating a superuser without is_superuser=True raises a ValueError.
+        """
+        with self.assertRaises(ValueError):
+            User.objects.create_superuser(
+                email="admin@example.com",
+                password="adminpassword123",
+                is_superuser=False
+            )
+        
     
     
