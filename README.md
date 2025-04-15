@@ -1,4 +1,7 @@
 # Django Pay
+
+Django Pay is a simple payment platform designed to work seamlessly with Flutterwave, DPO, and most other payment platforms. This is an open-source project aimed at helping anyone who wants to start building a payment system with Django.
+
 ## Requirements
 - Python3.10
 - Python Virtualenv
@@ -17,5 +20,5 @@ source venv/bin/activate
 ```
 If you are using vscode, opening the terminal will automatically activate the virtualenv.
 
-Create a file called `.env` this where we will put the environment variables.
-Use .env_example to populate your `.env` file.
+Create a file called `.env`. This is where we will put the environment variables.
+Use `.env_example` to populate your `.env` file.

@@ -39,7 +39,8 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS_STR = os.environ.get("CSRF_TRUSTED_ORIGINS")
 
-
+# Custom User Model
+AUTH_USER_MODEL = 'profiles.User'
 
 # Application definition
 
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     # Internal Apps
     'billing',
     'internet_bundles',
+    'profiles',
 ]
 
 MIDDLEWARE = [
