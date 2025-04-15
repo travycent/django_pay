@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.cache import cache
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from core.base_model import BaseModel
 from phonenumber_field.modelfields import PhoneNumberField
@@ -46,3 +47,29 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     def __str__(self):
         return self.email
+    
+    def get_cached_profile(self):
+        """
+        Get the cached profile of the user.
+        """
+        cache_key = f"user_profile_{self.id}"
+        cached_profile = cache.get(cache_key)
+        if not cached_profile:
+            # Simulate fetching profile data (e.g., from related models)
+            cached_profile = {
+                "email": self.email,
+                "first_name": self.first_name,
+                "last_name": self.last_name,
+                "phone_number": self.phone_number,
+            }
+            # Cache the data with a timeout of 1 hour (3600 seconds)
+            cache.set(cache_key, cached_profile, timeout=3600)
+        return cached_profile
+    
+    def save(self, *args, **kwargs):
+        """
+        Override the save method to clear the cache when the user is saved. Invalidate the Cache
+        """
+        super().save(*args, **kwargs)
+        cache_key = f"user_profile_{self.id}"
+        cache.delete(cache_key)
