@@ -24,7 +24,7 @@ class Packages(BaseModel):
     Model for internet packages.
     """
     category=models.ForeignKey(Category,on_delete=models.CASCADE,db_index=True)
-    amount=models.DecimalField(max_digits=10)
+    amount=models.IntegerField()
     time=models.CharField(max_length=100)
     speed=models.CharField(default='-',max_length=25)
     location=models.ForeignKey(Location,on_delete=models.CASCADE,db_index=True)
