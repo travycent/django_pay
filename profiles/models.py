@@ -33,6 +33,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     """
     Custom user model that extends AbstractBaseUser and BaseModel.
     """
+    site_name=models.CharField(max_length=100, blank=True, null=True)
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)

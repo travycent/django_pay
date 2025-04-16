@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'billing',
     'internet_bundles',
     'profiles',
+    'system',
 ]
 
 MIDDLEWARE = [
