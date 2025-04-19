@@ -1,6 +1,6 @@
 # Django Pay
 
-Django Pay is a simple payment platform designed to work seamlessly with Flutterwave, DPO, and most other payment platforms. This is an open-source project aimed at helping anyone who wants to start building a payment system with Django.
+Django Pay is a simple payment platform designed to work seamlessly with Flutterwave, DPO, and most other payment platforms. The solution is aimed at vending internet packages using a self service wifi platform which includes a voucher, connection to a microtic router and autologin.This is an open-source project aimed at helping anyone who wants to start building a payment system for selling hotspot internet with Django.
 
 ## Requirements
 - Python3.10

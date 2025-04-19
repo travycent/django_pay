@@ -7,7 +7,7 @@ RUN_ENV = os.environ.get('RUN_ENV')
 
 
 if RUN_ENV == 'TEST':
-    APP_SECRET_KEY = os.environ.get('SECRET_KEY_PROD') if os.environ.get(
+    APP_SECRET_KEY = os.environ.get('SECRET_KEY_TEST') if os.environ.get(
         'SECRET_KEY_TEST') else ''
     DATABASE_URL = os.environ.get('DATABASE_URL_TEST') if os.environ.get('DATABASE_URL_TEST') else ''
     DEBUG_MODE = True

@@ -57,6 +57,9 @@ INSTALLED_APPS = [
     'internet_bundles',
     'profiles',
     'system',
+    
+    #External Apps
+    'import_export',
 ]
 
 MIDDLEWARE = [
