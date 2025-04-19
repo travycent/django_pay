@@ -8,7 +8,10 @@ class Category(BaseModel):
    """
    Model for internet bundle categories.
    """ 
-   name=models.CharField(max_length=100)
+   name=models.CharField(
+       max_length=100,
+       help_text="e.g Daily, Weekly, Monthly, etc"
+       )
    owner=models.ForeignKey(User,on_delete=models.CASCADE,db_index=True)
    
    
@@ -16,7 +19,8 @@ class Category(BaseModel):
        return self.name
    
    def get_owner(self):
-        return self.package.category.owner.site_name
+        return self.owner.site_name
+   get_owner.short_description = 'Owner'
    
    class Meta:
        verbose_name_plural = 'Internet Bundles'
@@ -38,6 +42,7 @@ class Packages(BaseModel):
     
     def get_owner(self):
         return self.category.owner.site_name
+    get_owner.short_description = 'Owner'
     
     class Meta:
         verbose_name_plural = 'Packages'
@@ -70,12 +75,15 @@ class Vouchers(BaseModel):
     
     def get_owner(self):
         return self.package.category.owner.site_name
+    get_owner.short_description = 'Owner'
     
     def get_package(self):
         return self.package.category.name
+    get_package.short_description = 'Package'
     
     def get_location(self):
         return self.package.location.location
+    get_location.short_description = 'Location'
     
     class Meta:
         verbose_name_plural = 'Vouchers'

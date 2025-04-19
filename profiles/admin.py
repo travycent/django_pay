@@ -2,9 +2,6 @@ from django.contrib import admin
 from profiles.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-
-
-
 class UsersAdmin(BaseUserAdmin):
     list_display= ('site_name','email','first_name','last_name','phone_number','is_active','is_staff','updated_at')
     search_fields = ('site_name','email','first_name','last_name','phone_number',)
@@ -27,4 +24,5 @@ class UsersAdmin(BaseUserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
     list_per_page = 50
+    
 admin.site.register(User,UsersAdmin)
